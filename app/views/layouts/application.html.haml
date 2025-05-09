@@ -8,6 +8,10 @@
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
+    - if notice
+      %p.alert.alert-info= notice
+    - if alert
+      %p.alert.alert-danger= alert   
   %body
-   %div.container.mt-5
-    = yield
+    %div.container.mt-5
+      = yield
