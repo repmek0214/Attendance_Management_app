@@ -7,5 +7,8 @@ Rails.application.routes.draw do
   
   get "up" => "rails/health#show", as: :rails_health_check
 
+  resources :attendances, only: [:create]
+
+
   root to: 'home#index'
 end
