@@ -71,3 +71,6 @@ gem 'html2haml', '~> 2.2'
 gem 'bootstrap', '~> 5.3.0'
 gem 'sassc-rails'
 gem 'devise'
+gem 'rails_admin', '~> 3.0'
+gem 'cancancan', '~> 3.3', require: 'cancan'
+gem "cssbundling-rails"
