@@ -10,7 +10,8 @@
   - else
     = button_to "打刻する", attendances_path, method: :post, class: "btn btn-primary"
     = link_to '休暇申請する', new_leave_application_path, class: "btn btn-outline-primary mt-3"
-  = link_to 'ログアウト', destroy_user_session_path, method: :delete
+    = link_to '経費申請する', new_expense_application_path, class: "btn btn-outline-primary mt-3"
+    = link_to 'ログアウト', destroy_user_session_path, method: :delete
 - else
   = link_to 'ログイン', new_user_session_path
   = link_to 'サインアップ', new_user_registration_path

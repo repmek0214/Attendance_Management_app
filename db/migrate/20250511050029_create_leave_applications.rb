@@ -1,4 +1,4 @@
-class CreateLeaveApplications < ActiveRecord::Migration[7.0]
+class CreateLeaveApplications < ActiveRecord::Migration[7.1]
   def change
     create_table :leave_applications do |t|
       t.references :user, null: false, foreign_key: true

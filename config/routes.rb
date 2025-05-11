@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'expense_applications/new'
+  get 'expense_applications/create'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   devise_scope :user do
@@ -9,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :attendances, only: [:index, :create]
   resources :leave_applications, only: [:new, :create]
+  resources :expense_applications, only: [:new, :create]
 
 
   root to: 'home#index'
