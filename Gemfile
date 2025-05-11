@@ -76,3 +76,4 @@ gem 'cancancan', '~> 3.3', require: 'cancan'
 gem "cssbundling-rails"
 gem 'chartkick'
 gem 'groupdate'
+gem 'pagy'
