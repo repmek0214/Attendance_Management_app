@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  date: 2025-05-11
+  corrected_in: 2025-05-11 17:15:16
+  corrected_out: 2025-05-11 17:15:16
+  reason: MyString
+  status: 1
+
+two:
+  user: two
+  date: 2025-05-11
+  corrected_in: 2025-05-11 17:15:16
+  corrected_out: 2025-05-11 17:15:16
+  reason: MyString
+  status: 1

@@ -11,3 +11,8 @@ ja:
           pending: 申請中
           approved: 承認済
           rejected: 却下
+      attendance_correction:
+        statuses:
+          pending: "保留中"
+          approved: "承認済み"
+          rejected: "却下"

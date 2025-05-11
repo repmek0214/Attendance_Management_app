@@ -1,0 +1,25 @@
+%h2 勤怠修正申請管理
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th ユーザー
+      %th 日付
+      %th 出勤修正
+      %th 退勤修正
+      %th 理由
+      %th ステータス
+      %th 操作
+  %tbody
+    - @corrections.each do |c|
+      %tr
+        %td= c.user.email
+        %td= c.date
+        %td= c.corrected_in&.strftime("%Y-%m-%d %H:%M") || "-"
+        %td= c.corrected_out&.strftime("%Y-%m-%d %H:%M") || "-"
+        %td= c.reason
+        %td= c.status_i18n
+        %td
+          - unless c.approved? || c.rejected?
+            = button_to "承認", admin_attendance_correction_path(c, status: :approved), method: :patch, class: "btn btn-success btn-sm"
+            = button_to "却下", admin_attendance_correction_path(c, status: :rejected), method: :patch, class: "btn btn-danger btn-sm"

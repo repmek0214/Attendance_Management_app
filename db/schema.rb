@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_11_050601) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_11_081516) do
+  create_table "attendance_corrections", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.date "date"
+    t.datetime "corrected_in"
+    t.datetime "corrected_out"
+    t.string "reason"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_attendance_corrections_on_user_id"
+  end
+
   create_table "attendances", force: :cascade do |t|
     t.integer "user_id", null: false
     t.date "date"
@@ -56,6 +68,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_11_050601) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "attendance_corrections", "users"
   add_foreign_key "attendances", "users"
   add_foreign_key "expense_applications", "users"
   add_foreign_key "leave_applications", "users"

@@ -41,5 +41,5 @@ class AttendancesController < ApplicationController
       Date.current..Date.current
     end
   end
-  
+
 end

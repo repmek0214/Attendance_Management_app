@@ -1,0 +1,16 @@
+%h2 勤怠修正申請フォーム
+
+= form_with model: @correction, local: true do |f|
+  .form-group
+    = f.label :date, "修正対象日"
+    = f.date_field :date, class: "form-control"
+  .form-group
+    = f.label :corrected_in, "修正後 出勤時刻"
+    = f.datetime_local_field :corrected_in, class: "form-control"
+  .form-group
+    = f.label :corrected_out, "修正後 退勤時刻"
+    = f.datetime_local_field :corrected_out, class: "form-control"
+  .form-group
+    = f.label :reason, "修正理由"
+    = f.text_area :reason, class: "form-control"
+  = f.submit "申請する", class: "btn btn-primary mt-3"

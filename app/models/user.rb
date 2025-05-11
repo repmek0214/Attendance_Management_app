@@ -9,5 +9,6 @@ class User < ApplicationRecord
   has_many :attendances, dependent: :destroy
   has_many :leave_applications, dependent: :destroy
   has_many :expense_applications, dependent: :destroy
+  has_many :attendance_corrections, dependent: :destroy
 
 end
