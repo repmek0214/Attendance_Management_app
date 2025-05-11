@@ -3,15 +3,13 @@
 - if user_signed_in?
   %p ログイン中: #{current_user.email}
   %p ロール: #{current_user.role}
+  - attendance = current_user.attendances.find_by(date: Date.current)
+  - if attendance&.clock_in.present? && attendance&.clock_out.present?
+    %p 本日の打刻は完了しました。
+    = link_to '勤怠履歴を見る', attendances_path, class: "btn btn-outline-secondary mt-3"
+  - else
+    = button_to "打刻する", attendances_path, method: :post, class: "btn btn-primary"
   = link_to 'ログアウト', destroy_user_session_path, method: :delete
 - else
   = link_to 'ログイン', new_user_session_path
   = link_to 'サインアップ', new_user_registration_path
-
-- if user_signed_in?
-  %p ログイン中: #{current_user.email}
-  - attendance = current_user.attendances.find_by(date: Date.current)
-  - if attendance&.clock_in.present? && attendance&.clock_out.present?
-    %p 本日の打刻は完了しました。
-  - else
-    = button_to "打刻する", attendances_path, method: :post, class: "btn btn-primary"

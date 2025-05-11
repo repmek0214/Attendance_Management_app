@@ -1,0 +1,25 @@
+%h2 勤怠履歴
+
+- if flash[:alert]
+  .alert.alert-danger= flash[:alert] 
+
+= form_with url: attendances_path, method: :get, local: true do
+  .form-group
+    = label_tag :month, "月を選択（YYYY-MM）"
+    = select_tag :month, options_for_select((0..11).map { |i| (Date.current - i.months).strftime("%Y-%m") }, params[:month]), class: "form-control"
+  = submit_tag "検索", class: "btn btn-secondary mt-2"
+
+%table.table.mt-4
+  %thead
+    %tr
+      %th 日付
+      %th 出勤時刻
+      %th 退勤時刻
+  %tbody
+    - @attendances.each do |att|
+      %tr
+        %td= att.date
+        %td= att.clock_in&.strftime("%H:%M")
+        %td= att.clock_out&.strftime("%H:%M")
+
+= link_to '戻る', root_path 

@@ -1,6 +1,13 @@
 class AttendancesController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @attendances = current_user.attendances
+                               .order(date: :desc)
+                               .where(date: filtering_date_range)
+  end
+  
+
   def create
     date = Date.current
     attendance = current_user.attendances.find_or_initialize_by(date: date)
@@ -17,5 +24,22 @@ class AttendancesController < ApplicationController
 
     attendance.save!
     redirect_to root_path, notice: message
-  end    
+  end
+
+  private
+
+  def filtering_date_range
+    if params[:month].present?
+      begin
+        month = Date.parse(params[:month] + "-01")
+        month.beginning_of_month..month.end_of_month
+      rescue Date::Error
+        flash.now[:alert] = "無効な日付形式です。正しい形式（YYYY-MM）で入力してください。"
+        Date.current..Date.current # デフォルトの範囲を返す
+      end
+    else
+      Date.current..Date.current
+    end
+  end
+  
 end
