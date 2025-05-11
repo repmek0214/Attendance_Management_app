@@ -3,41 +3,51 @@
 - if user_signed_in?
   .container
     .row
-      %p ログイン中: #{current_user.email}
-      %p ロール: #{current_user.role}
-      - attendance = current_user.attendances.find_by(date: Date.current)
-      - correction = current_user.attendance_corrections.find_by(date: Date.current, status: :approved)
-      %p 本日の打刻は :
-      - time_in  = correction&.corrected_in || attendance&.clock_in
-      - time_out = correction&.corrected_out || attendance&.clock_out
-
-      - if time_in.present?
-        %p 出勤（#{time_in.strftime('%H:%M')}） 
-      - else
-        %p 未出勤
-
-      - if time_out.present?
-        %p 退勤（#{time_out.strftime('%H:%M')}）
-      - else
-        %p 未退勤
-
-      - if correction
-        %p.text-info 修正済みの打刻が適用されています
       .col-md-6.mb-3
+        .card
+          .card-body
+            %h5.card-title ユーザー情報
+            %p ログイン中: #{current_user.email}
+            %p ロール: #{current_user.role}
+
+      .col-md-6.mb-3
+        .card
+          .card-body
+            %h5.card-title 本日の打刻
+            - attendance = current_user.attendances.find_by(date: Date.current)
+            - correction = current_user.attendance_corrections.find_by(date: Date.current, status: :approved)
+            - time_in  = correction&.corrected_in || attendance&.clock_in
+            - time_out = correction&.corrected_out || attendance&.clock_out
+
+            - if time_in.present?
+              %p 出勤（#{time_in.strftime('%H:%M')}）
+            - else
+              %p 未出勤
+
+            - if time_out.present?
+              %p 退勤（#{time_out.strftime('%H:%M')}）
+            - else
+              %p 未退勤
+
+            - if correction
+              %p.text-info 修正済みの打刻が適用されています
+              
+      .col-md-6.mb-3 
         .card
           .card-body
             %h5.card-title 勤怠打刻
-            = button_to "打刻する", attendances_path, class: "btn btn-dark"
+            = button_to "打刻する", attendances_path, class: "btn btn-dark mb-2 btn-block"
+            = link_to '勤怠履歴を見る', attendances_path, class: "btn btn-outline-secondary mb-2 btn-block"
       .col-md-6.mb-3
         .card
           .card-body
-            = link_to '勤怠履歴を見る', attendances_path, class: "btn btn-outline-secondary mb-2 btn-block"
             = link_to '休暇申請する', new_leave_application_path, class: "btn btn-outline-primary mb-2 btn-block"
             = link_to '経費申請する', new_expense_application_path, class: "btn btn-outline-primary mb-2 btn-block"
             = link_to '勤怠修正申請する', new_attendance_correction_path, class: "btn btn-outline-primary mb-2 btn-block"
-            = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger mb-2 btn-block"
             = link_to '休暇申請一覧', leave_applications_path, class: "btn btn-outline-secondary mb-2 btn-block"
             = link_to '経費申請一覧', expense_applications_path, class: "btn btn-outline-secondary mb-2 btn-block"
+            = link_to '勤怠修正申請一覧', attendance_corrections_path, class: "btn btn-outline-secondary mb-2 btn-block"
+            = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger mb-2 btn-block"
       - if current_user.admin?
         .col-md-12.mb-3
           .card

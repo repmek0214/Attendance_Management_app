@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_11_081516) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_11_103327) do
   create_table "attendance_corrections", force: :cascade do |t|
     t.integer "user_id", null: false
     t.date "date"
     t.datetime "corrected_in"
     t.datetime "corrected_out"
     t.string "reason"
-    t.integer "status"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_attendance_corrections_on_user_id"

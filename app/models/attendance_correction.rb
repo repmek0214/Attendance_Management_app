@@ -8,7 +8,7 @@ class AttendanceCorrection < ApplicationRecord
   after_update :apply_correction, if: -> { saved_change_to_status? && approved? }
 
   def status_i18n
-    I18n.t("activerecord.attributes.attendance_correction.statuses.#{status}")
+    I18n.t("activerecord.attributes.attendance_correction.status.#{status}")
   end
 
   private
