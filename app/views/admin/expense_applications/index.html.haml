@@ -21,3 +21,6 @@
           - unless app.approved? || app.rejected?
             = button_to "承認", admin_expense_application_path(app, status: :approved), method: :patch, class: "btn btn-success btn-sm"
             = button_to "却下", admin_expense_application_path(app, status: :rejected), method: :patch, class: "btn btn-danger btn-sm"
+
+
+= link_to '戻る', root_path

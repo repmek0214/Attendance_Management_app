@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :expense_applications, only: [:new, :create, :index]
 
   namespace :admin do
+    get 'dashboard', to: 'dashboard#index'
     resources :leave_applications, only: [:index, :update]
     resources :expense_applications, only: [:index, :update]
   end
