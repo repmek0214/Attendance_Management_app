@@ -6,15 +6,23 @@
       %p ログイン中: #{current_user.email}
       %p ロール: #{current_user.role}
       - attendance = current_user.attendances.find_by(date: Date.current)
+      - correction = current_user.attendance_corrections.find_by(date: Date.current, status: :approved)
       %p 本日の打刻は :
-      - if attendance&.clock_in.present?
-        %p 出勤（#{attendance.clock_in.strftime('%H:%M')}） 
+      - time_in  = correction&.corrected_in || attendance&.clock_in
+      - time_out = correction&.corrected_out || attendance&.clock_out
+
+      - if time_in.present?
+        %p 出勤（#{time_in.strftime('%H:%M')}） 
       - else
         %p 未出勤
-      - if attendance&.clock_out.present?
-        %p 退勤（#{attendance.clock_out.strftime('%H:%M')}）
+
+      - if time_out.present?
+        %p 退勤（#{time_out.strftime('%H:%M')}）
       - else
         %p 未退勤
+
+      - if correction
+        %p.text-info 修正済みの打刻が適用されています
       .col-md-6.mb-3
         .card
           .card-body
