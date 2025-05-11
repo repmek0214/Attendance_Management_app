@@ -14,6 +14,10 @@ class LeaveApplicationsController < ApplicationController
     end
   end
 
+  def index
+    @leave_applications = current_user.leave_applications.order(created_at: :desc)
+  end
+
   private
 
   def leave_application_params

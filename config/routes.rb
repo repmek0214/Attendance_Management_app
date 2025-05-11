@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :attendances, only: [:index, :create]
-  resources :leave_applications, only: [:new, :create]
-  resources :expense_applications, only: [:new, :create]
+  resources :leave_applications, only: [:new, :create, :index]
+  resources :expense_applications, only: [:new, :create, :index]
 
 
   root to: 'home#index'

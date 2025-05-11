@@ -14,6 +14,10 @@ class ExpenseApplicationsController < ApplicationController
     end
   end
 
+  def index
+    @expense_applications = current_user.expense_applications.order(created_at: :desc)
+  end
+
   private
 
   def expense_application_params

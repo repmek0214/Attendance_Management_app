@@ -1,0 +1,16 @@
+%h2 休暇申請一覧
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th 開始日
+      %th 終了日
+      %th 理由
+      %th ステータス
+  %tbody
+    - @leave_applications.each do |app|
+      %tr
+        %td= app.start_date
+        %td= app.end_date
+        %td= app.reason
+        %td= app.status_i18ns

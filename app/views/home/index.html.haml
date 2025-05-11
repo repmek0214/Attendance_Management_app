@@ -12,6 +12,8 @@
     = link_to '休暇申請する', new_leave_application_path, class: "btn btn-outline-primary mt-3"
     = link_to '経費申請する', new_expense_application_path, class: "btn btn-outline-primary mt-3"
     = link_to 'ログアウト', destroy_user_session_path, method: :delete
+    = link_to '休暇申請一覧', leave_applications_path, class: "btn btn-outline-secondary mt-2"
+    = link_to '経費申請一覧', expense_applications_path, class: "btn btn-outline-secondary mt-2"
 - else
   = link_to 'ログイン', new_user_session_path
   = link_to 'サインアップ', new_user_registration_path
