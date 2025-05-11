@@ -1,6 +1,6 @@
 class Admin::LeaveApplicationsController < ApplicationController
   def index
-    @leave_applications = LeaveApplication.order(created_at: :desc)
+    @leave_applications = LeaveApplication.includes(:user).order(created_at: :desc)
   end
 
   def update

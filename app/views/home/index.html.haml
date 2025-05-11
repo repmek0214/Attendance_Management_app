@@ -6,9 +6,9 @@
   - attendance = current_user.attendances.find_by(date: Date.current)
   - if attendance&.clock_in.present? && attendance&.clock_out.present?
     %p 本日の打刻は完了しました。
-    = link_to '勤怠履歴を見る', attendances_path, class: "btn btn-outline-secondary mt-3"
   - else
     = button_to "打刻する", attendances_path, method: :post, class: "btn btn-primary"
+    = link_to '勤怠履歴を見る', attendances_path, class: "btn btn-outline-secondary mt-3"
     = link_to '休暇申請する', new_leave_application_path, class: "btn btn-outline-primary mt-3"
     = link_to '経費申請する', new_expense_application_path, class: "btn btn-outline-primary mt-3"
     = link_to 'ログアウト', destroy_user_session_path, method: :delete

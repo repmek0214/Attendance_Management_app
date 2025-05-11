@@ -1,6 +1,6 @@
 class Admin::ExpenseApplicationsController < ApplicationController
   def index
-    @expense_applications = ExpenseApplication.order(created_at: :desc)
+    @expense_applications = ExpenseApplication.includes(:user).order(created_at: :desc)
   end
 
   def update
