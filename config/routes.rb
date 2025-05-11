@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  get 'expense_applications/new'
-  get 'expense_applications/create'
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount RailsAdmin::Engine => '/rails_admin', as: 'rails_admin'
   devise_for :users
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
@@ -13,6 +11,10 @@ Rails.application.routes.draw do
   resources :leave_applications, only: [:new, :create, :index]
   resources :expense_applications, only: [:new, :create, :index]
 
+  namespace :admin do
+    resources :leave_applications, only: [:index, :update]
+    resources :expense_applications, only: [:index, :update]
+  end
 
   root to: 'home#index'
 end

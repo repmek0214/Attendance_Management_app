@@ -1,0 +1,13 @@
+ja:
+  activerecord:
+    attributes:
+      leave_application:
+        status:
+          pending: 申請中
+          approved: 承認済
+          rejected: 却下
+      expense_application:
+        status:
+          pending: 申請中
+          approved: 承認済
+          rejected: 却下
