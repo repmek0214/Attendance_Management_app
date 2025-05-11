@@ -1,0 +1,16 @@
+-# app/views/leave_applications/new.html.haml
+
+%h2 休暇申請フォーム
+
+= form_with model: @leave_application, local: true do |f|
+  .form-group
+    = f.label :start_date, "開始日"
+    = f.date_field :start_date, class: "form-control"
+  .form-group
+    = f.label :end_date, "終了日"
+    = f.date_field :end_date, class: "form-control"
+  .form-group
+    = f.label :reason, "理由"
+    = f.text_field :reason, class: "form-control"
+
+  = f.submit "申請する", class: "btn btn-primary mt-3"

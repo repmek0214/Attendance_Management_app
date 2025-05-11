@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_10_121920) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_11_050029) do
   create_table "attendances", force: :cascade do |t|
     t.integer "user_id", null: false
     t.date "date"
@@ -19,6 +19,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_10_121920) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_attendances_on_user_id"
+  end
+
+  create_table "leave_applications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.string "reason", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_leave_applications_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -35,4 +46,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_10_121920) do
   end
 
   add_foreign_key "attendances", "users"
+  add_foreign_key "leave_applications", "users"
 end
