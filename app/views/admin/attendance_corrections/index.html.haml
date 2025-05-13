@@ -23,3 +23,5 @@
           - unless c.approved? || c.rejected?
             = button_to "承認", admin_attendance_correction_path(c, status: :approved), method: :patch, class: "btn btn-success btn-sm"
             = button_to "却下", admin_attendance_correction_path(c, status: :rejected), method: :patch, class: "btn btn-danger btn-sm"
+
+= link_to '戻る', root_path, class: "btn btn-primary"

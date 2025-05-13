@@ -2,12 +2,12 @@
 puts "シードデータを作成中..."
 
 admin = User.find_or_create_by!(email: 'admin@example.com') do |u|
-  u.password = 'password'
+  u.password = 'adpass'
   u.role = :admin
 end
 
 employee = User.find_or_create_by!(email: 'employee@example.com') do |u|
-  u.password = 'password'
+  u.password = 'empass'
   u.role = :employee
 end
 

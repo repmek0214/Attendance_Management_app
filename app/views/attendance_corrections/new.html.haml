@@ -3,13 +3,14 @@
 = form_with model: @correction, local: true do |f|
   .form-group
     = f.label :date, "修正対象日"
-    = f.date_field :date, class: "form-control"
+    = f.select :date, options_for_select((Date.current - 7..Date.current).map { |d| [d.strftime('%Y-%m-%d'), d] }), {}, class: "form-control"
   .form-group
     = f.label :corrected_in, "修正後 出勤時刻"
-    = f.datetime_local_field :corrected_in, class: "form-control"
+    = f.select :corrected_in, options_for_select((0..23).map { |h| ["#{h}:00", "#{h}:00"] }), {}, class: "form-control"
   .form-group
     = f.label :corrected_out, "修正後 退勤時刻"
-    = f.datetime_local_field :corrected_out, class: "form-control"
+    = f.select :corrected_out, options_for_select((0..23).map { |h| ["#{h}:00", "#{h}:00"] }), {}, class: "form-control"
+  .form-group
   .form-group
     = f.label :reason, "修正理由"
     = f.text_area :reason, class: "form-control"

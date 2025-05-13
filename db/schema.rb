@@ -13,11 +13,11 @@
 ActiveRecord::Schema[7.1].define(version: 2025_05_11_103327) do
   create_table "attendance_corrections", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.date "date"
-    t.datetime "corrected_in"
-    t.datetime "corrected_out"
-    t.string "reason"
-    t.integer "status", default: 0
+    t.date "date", null: false
+    t.datetime "corrected_in", null: false
+    t.datetime "corrected_out", null: false
+    t.string "reason", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_attendance_corrections_on_user_id"

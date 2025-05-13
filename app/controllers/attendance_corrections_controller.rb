@@ -12,7 +12,7 @@ class AttendanceCorrectionsController < ApplicationController
   def create
     @correction = current_user.attendance_corrections.build(correction_params)
     if @correction.save
-      redirect_to attendance_corrections_path, notice: "勤怠修正申請を送信しました"
+      redirect_to root_path, notice: "勤怠修正申請を送信しました"
     else
       render :new
     end
