@@ -12,8 +12,8 @@
     - @corrections.each do |c|
       %tr
         %td= c.date
-        %td= c.corrected_in&.strftime("%Y-%m-%d %H:%M") || "-"
-        %td= c.corrected_out&.strftime("%Y-%m-%d %H:%M") || "-"
+        %td= c.corrected_in&.strftime("%H:%M") || "-"
+        %td= c.corrected_out&.strftime("%H:%M") || "-"
         %td= c.reason
         %td= c.status_i18n
 
