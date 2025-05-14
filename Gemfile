@@ -8,7 +8,9 @@ gem "rails", "~> 7.1.5", ">= 7.1.5.1"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
-gem 'pg', '~> 1.5'
+group :production do
+  gem 'pg', '~> 1.5'
+end
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
