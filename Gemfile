@@ -49,6 +49,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0'       # RSpec本体
   gem 'factory_bot_rails'
   gem 'shoulda-matchers', '~> 6.0'
+  gem 'sqlite3', '~> 1.5'
 end
 
 group :development do
