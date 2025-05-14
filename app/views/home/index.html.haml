@@ -36,7 +36,7 @@
         .card
           .card-body
             %h5.card-title 勤怠打刻
-            = button_to "打刻する", attendances_path, class: "btn btn-dark mb-2 btn-block"
+            = button_to "打刻する", attendances_path, class: "btn btn-dark mb-2 btn-block", data: { confirm: "本当に打刻しますか？" }
             = link_to '勤怠履歴を見る', attendances_path, class: "btn btn-outline-secondary mb-2 btn-block"
       .col-md-6.mb-3
         .card
