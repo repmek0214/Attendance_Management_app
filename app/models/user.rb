@@ -10,5 +10,7 @@ class User < ApplicationRecord
   has_many :leave_applications, dependent: :destroy
   has_many :expense_applications, dependent: :destroy
   has_many :attendance_corrections, dependent: :destroy
+  has_many :shift_requests, dependent: :destroy
+  has_many :schedules,      dependent: :destroy
 
 end

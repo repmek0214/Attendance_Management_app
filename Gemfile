@@ -80,3 +80,4 @@ gem 'groupdate'
 gem 'pagy'
 gem 'rails-i18n'
 gem 'devise-i18n-views'
+gem "simple_calendar", "~> 3.1"

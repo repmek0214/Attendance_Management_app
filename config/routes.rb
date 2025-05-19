@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'shift_requests/new'
+  get 'shift_requests/create'
+  get 'shift_requests/index'
   get 'attendance_corrections/new'
   get 'attendance_corrections/create'
   get 'attendance_corrections/index'
@@ -14,11 +17,18 @@ Rails.application.routes.draw do
   resources :leave_applications, only: [:new, :create, :index]
   resources :expense_applications, only: [:new, :create, :index]
   resources :attendance_corrections, only: [:new, :create, :index]
+  resources :shift_requests, only: [:index] do
+    collection do
+      get  :monthly_new
+      post :monthly_create
+    end
+  end
 
   namespace :admin do
     resources :attendance_corrections, only: [:index, :update]
     resources :leave_applications, only: [:index, :update]
     resources :expense_applications, only: [:index, :update]
+    resources :shift_requests, only: [:index, :update]
   end
 
   root to: 'home#index'

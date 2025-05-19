@@ -31,23 +31,27 @@
 
             - if correction
               %p.text-info 修正済みの打刻が適用されています
-              
-      .col-md-6.mb-3 
+
+      .col-md-6.mb-3
         .card
           .card-body
             %h5.card-title 勤怠打刻
             = button_to "打刻する", attendances_path, class: "btn btn-dark mb-2 btn-block", data: { confirm: "本当に打刻しますか？" }
             = link_to '勤怠履歴を見る', attendances_path, class: "btn btn-outline-secondary mb-2 btn-block"
+
       .col-md-6.mb-3
         .card
           .card-body
             = link_to '休暇申請する', new_leave_application_path, class: "btn btn-outline-primary mb-2 btn-block"
             = link_to '経費申請する', new_expense_application_path, class: "btn btn-outline-primary mb-2 btn-block"
             = link_to '勤怠修正申請する', new_attendance_correction_path, class: "btn btn-outline-primary mb-2 btn-block"
+            = link_to 'シフト希望を提出する', monthly_new_shift_requests_path, class: "btn btn-outline-primary mb-2 btn-block"
+            
             = link_to '休暇申請一覧', leave_applications_path, class: "btn btn-outline-secondary mb-2 btn-block"
             = link_to '経費申請一覧', expense_applications_path, class: "btn btn-outline-secondary mb-2 btn-block"
             = link_to '勤怠修正申請一覧', attendance_corrections_path, class: "btn btn-outline-secondary mb-2 btn-block"
             = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger mb-2 btn-block"
+
       - if current_user.admin?
         .col-md-12.mb-3
           .card
@@ -55,6 +59,19 @@
               = link_to '休暇申請管理', admin_leave_applications_path, class: "btn btn-outline-secondary mb-2 btn-block"
               = link_to '経費申請管理', admin_expense_applications_path, class: "btn btn-outline-secondary mb-2 btn-block"
               = link_to '勤怠修正申請管理', admin_attendance_corrections_path, class: "btn btn-outline-secondary mb-2 btn-block"
+              = link_to 'シフト希望管理', admin_shift_requests_path, class: "btn btn-outline-secondary mb-2 btn-block"
+
+    %h2 今月の勤務予定
+    %p.small= "#{Date.current.year}年#{Date.current.month}月"
+    %nav.mb-2
+
+    = month_calendar(events: @schedules, attribute: :date, table_class: "table table-bordered", skip_blanks: true) do |day, events|
+      - css = events.any? ? 'bg-info text-white' : ''
+      .p-2{ class: css }
+        = day.day
+        - events.each do |e|
+          %div.small= "#{e.start_time.strftime('%H:%M')}-#{e.end_time.strftime('%H:%M')}"
+
 - else
   = link_to 'ログイン', new_user_session_path
   = link_to 'サインアップ', new_user_registration_path

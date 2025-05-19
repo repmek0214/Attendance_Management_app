@@ -1,0 +1,25 @@
+%h2 シフト希望管理
+
+%table.table
+  %thead
+    %tr
+      %th ユーザー
+      %th シフト日
+      %th 開始
+      %th 終了
+      %th 理由
+      %th ステータス
+      %th 操作
+  %tbody
+    - @requests.each do |req|
+      %tr
+        %td= req.user.email
+        %td= req.shift_date
+        %td= req.start_time.strftime("%H:%M")
+        %td= req.end_time.strftime("%H:%M")
+        %td= req.reason.presence || '-'
+        %td= req.status_i18n
+        %td
+          - unless req.approved? || req.rejected?
+            = button_to '承認', admin_shift_request_path(req, status: :approved), method: :patch, class: 'btn btn-success btn-sm'
+            = button_to '却下', admin_shift_request_path(req, status: :rejected), method: :patch, class: 'btn btn-danger btn-sm'

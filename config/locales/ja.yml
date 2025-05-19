@@ -16,6 +16,13 @@ ja:
           pending: 申請中
           approved: 承認済
           rejected: 却下
+          
+    enums:
+      shift_request:
+        status:
+          pending:   申請中
+          approved:  承認済
+          rejected:  却下
 
   devise:
     sessions:
