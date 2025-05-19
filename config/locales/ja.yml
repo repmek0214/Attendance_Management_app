@@ -24,9 +24,18 @@ ja:
           approved:  承認済
           rejected:  却下
 
+  simple_calendar:
+    previous: "前月"
+    next: "来月"
+    today: "今月"
+
   devise:
     sessions:
       signed_in: "ログインしました"
       signed_out: "ログアウトしました"
       new:
-        sign_in: "ログイン"     
+        sign_in: "ログイン"   
+    failure:
+      unauthenticated: "ログインが必要です"
+      user:
+        unauthenticated: "ユーザーとしてログインしてください"  
