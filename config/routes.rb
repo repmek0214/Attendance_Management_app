@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   resources :attendance_corrections, only: [:new, :create, :index]
 
   namespace :admin do
-    get 'dashboard', to: 'dashboard#index'
     resources :attendance_corrections, only: [:index, :update]
     resources :leave_applications, only: [:index, :update]
     resources :expense_applications, only: [:index, :update]
