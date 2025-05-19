@@ -16,3 +16,10 @@ ja:
           pending: 申請中
           approved: 承認済
           rejected: 却下
+
+  devise:
+    sessions:
+      signed_in: "ログインしました"
+      signed_out: "ログアウトしました"
+      new:
+        sign_in: "ログイン"     

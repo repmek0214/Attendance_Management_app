@@ -11,8 +11,11 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2025_05_11_103327) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "attendance_corrections", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.date "date", null: false
     t.datetime "corrected_in", null: false
     t.datetime "corrected_out", null: false
@@ -24,7 +27,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_11_103327) do
   end
 
   create_table "attendances", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.date "date"
     t.datetime "clock_in"
     t.datetime "clock_out"
@@ -34,7 +37,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_11_103327) do
   end
 
   create_table "expense_applications", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.date "date", null: false
     t.integer "amount", null: false
     t.string "purpose", null: false
@@ -45,7 +48,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_11_103327) do
   end
 
   create_table "leave_applications", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.date "start_date", null: false
     t.date "end_date", null: false
     t.string "reason", null: false
