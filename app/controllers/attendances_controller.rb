@@ -5,6 +5,7 @@ class AttendancesController < ApplicationController
     @attendances = current_user.attendances
                                .order(date: :desc)
                                .where(date: filtering_date_range)
+    @today_attendance = current_user.attendances.find_by(date: Date.current)
   end
   
 

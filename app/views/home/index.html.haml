@@ -32,12 +32,22 @@
             - if correction
               %p.text-info 修正済みの打刻が適用されています
 
-      .col-md-6.mb-3
-        .card
-          .card-body
-            %h5.card-title 勤怠打刻
-            = button_to "打刻する", attendances_path, class: "btn btn-dark mb-2 btn-block", data: { confirm: "本当に打刻しますか？" }
-            = link_to '勤怠履歴を見る', attendances_path, class: "btn btn-outline-secondary mb-2 btn-block"
+    .col-md-6.mb-3
+      .card
+        .card-body
+          %h5.card-title 勤怠打刻
+
+          - if @today_attendance.nil?
+            / ① 出勤前 → 「出勤打刻」ボタン
+            = button_tag '打刻', type: :button, class: 'btn btn-dark mb-2 btn-block', data: { bs_toggle: 'modal', bs_target: '#confirmAttendanceModal', action_type: 'in' }
+          - elsif @today_attendance.clock_in.present? && @today_attendance.clock_out.blank?
+            / ② 出勤済み → 「退勤打刻」ボタン
+            = button_tag '打刻', type: :button, class: 'btn btn-dark mb-2 btn-block', data: { bs_toggle: 'modal', bs_target: '#confirmAttendanceModal', action_type: 'out' }
+          - else
+            / ③ 退勤済み → 押せない「打刻済み」
+            %button.btn.btn-secondary.mb-2.btn-block{ disabled: true } 打刻済み
+
+          = link_to '勤怠履歴を見る', attendances_path, class: 'btn btn-outline-secondary mb-2 btn-block'
 
       .col-md-6.mb-3
         .card
@@ -75,3 +85,5 @@
 - else
   = link_to 'ログイン', new_user_session_path
   = link_to 'サインアップ', new_user_registration_path
+
+= render 'shared/attendance_confirm_modal'
