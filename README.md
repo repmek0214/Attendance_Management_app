@@ -1,24 +1,58 @@
-# README
+# Attendance Management App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サービス概要
 
-Things you may want to cover:
+社員の日次打刻、勤怠実績、休暇・経費申請を **ワンストップで管理・承認** できる Ruby on Rails 製 Web アプリです。管理者はブラウザだけで実績確認や 、従業員は直感的な UI でワンクリック打刻が可能です。
 
-* Ruby version
+* トップページスクリーンショット
 
-* System dependencies
+<img width="700" alt="スクリーンショット 2025-05-25 14 17 52" src="https://github.com/user-attachments/assets/74e1941b-f82b-4936-bd53-1f50ba96794f" />
 
-* Configuration
+---
 
-* Database creation
+## URL
 
-* Database initialization
+| 環境     | URL                                                                                | 認証情報                            |
+| ------ | ---------------------------------------------------------------------------------- | ------------------------------- |
+| 本番     | https://attendance-app-demo-743d12ae782b.herokuapp.com/        | `admin@example.com` / `adpass` |
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+---
 
-* Deployment instructions
+## 使用技術
 
-* ...
+* **バックエンド**: Ruby 3.3 / Ruby on Rails 7.1 
+* **フロントエンド**: Bootstrap 5 ・ Haml 
+* **認証 / 権限**: Devise (devise-i18n) 
+* **管理画面**: rails\_admin
+* **開発補助**: bullet, rubocop-rails, rspec-rails
+* **DB**: PostgreSQL (本番)、SQLite (開発)
+* **CI / CD**:　RSpec・RuboCop
+* **デプロイ**: Heroku
+
+---
+
+## 機能一覧
+
+| 区分   | 機能         | 概要                                   |
+| ---- | ---------- | ------------------------------------ |
+| 打刻   | 出勤・退勤打刻    | 過去日入力に対応、重複防止バリデーション付き         |
+| シフト  | シフト希望申請    | 従業員が希望シフトを提出し、管理者が承認・確定 simple\_calendar でカレンダー表示             |
+| 修正申請 | 勤怠修正ワークフロー | 社員→管理者 1 段階承認         |
+| 休暇   | 休暇申請 & 承認  | 単一承認フロー（社員→管理者）。残日数管理は未実装            |
+| 経費   | 経費申請 & 承認  | 単一承認フロー。経費分類・精算処理は未実装 
+| 管理   | RailsAdmin | ユーザ/申請一括編集 |
+
+
+
+---
+
+## 工夫ポイント
+
+* **bullet gem** による N+1 検知を CI に組み込み、パフォーマンス劣化を未然に防止。
+* **RSpec + FactoryBot** で重要ワークフロー（打刻 / 申請 / 承認）の E2E テストを自動化。
+* **Bootstrap** モーダル で打刻確認フォームをポップアップ表示し、ページ遷移を極力排除。
+* **simple_calendar** を用いた月間カレンダー UI から シフト希望を一括申請。
+
+---
+
