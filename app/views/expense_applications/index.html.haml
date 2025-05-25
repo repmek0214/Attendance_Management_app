@@ -1,0 +1,18 @@
+%h2 経費申請一覧
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th 日付
+      %th 金額
+      %th 用途
+      %th ステータス
+  %tbody
+    - @expense_applications.each do |app|
+      %tr
+        %td= app.date
+        %td= number_to_currency(app.amount, unit: "¥")
+        %td= app.purpose
+        %td= app.status_i18n
+
+= link_to '戻る', root_path, class: "btn btn-primary"

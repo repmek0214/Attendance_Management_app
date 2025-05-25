@@ -1,0 +1,41 @@
+ja:
+  activerecord:
+    attributes:
+      leave_application:
+        status:
+          pending: 申請中
+          approved: 承認済
+          rejected: 却下
+      expense_application:
+        status:
+          pending: 申請中
+          approved: 承認済
+          rejected: 却下
+      attendance_correction:
+        status:
+          pending: 申請中
+          approved: 承認済
+          rejected: 却下
+          
+    enums:
+      shift_request:
+        status:
+          pending:   申請中
+          approved:  承認済
+          rejected:  却下
+
+  simple_calendar:
+    previous: "前月"
+    next: "来月"
+    today: "今月"
+
+  devise:
+    sessions:
+      signed_in: "ログインしました"
+      signed_out: "ログアウトしました"
+      new:
+        sign_in: "ログイン"   
+    failure:
+      unauthenticated: "ログインが必要です"
+      user:
+        unauthenticated: "ユーザーとしてログインしてください"  

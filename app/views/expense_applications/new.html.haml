@@ -1,0 +1,15 @@
+%h2 経費申請フォーム
+
+= form_with model: @expense_application, local: true do |f|
+  .form-group
+    = f.label :date, "使用日"
+    = f.date_field :date, class: "form-control"
+  .form-group
+    = f.label :amount, "金額（円）"
+    = f.number_field :amount, class: "form-control"
+  .form-group
+    = f.label :purpose, "用途"
+    = f.text_field :purpose, class: "form-control"
+
+  = f.submit "申請する", class: "btn btn-primary mt-3"
+  = link_to 'キャンセル', root_path, class: "btn btn-secondary mt-3"

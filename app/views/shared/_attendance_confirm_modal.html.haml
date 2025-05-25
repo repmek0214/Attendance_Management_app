@@ -1,0 +1,17 @@
+.modal.fade#confirmAttendanceModal( tabindex="-1" aria-hidden="true" data-controller="attendance-confirm" data-bs-backdrop="static" data-bs-keyboard="false" )
+  = form_with url: attendances_path, method: :post, local: true, id: "confirmAttendanceForm" do |f|
+    = f.hidden_field :action_type, id: "confirmActionType"
+    = f.hidden_field :date,        id: "confirmDate"
+    = f.hidden_field :clock_in,    id: "confirmClockIn"
+    = f.hidden_field :clock_out,   id: "confirmClockOut"
+
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %h5.modal-title 打刻確認
+          %button.btn-close{ type: "button", data: { bs_dismiss: "modal" }, aria: { label: "閉じる" } }
+        .modal-body
+          %p#confirmMessage 確認中…
+        .modal-footer
+          %button.btn.btn-secondary{ type: "button", data: { bs_dismiss: "modal" } } キャンセル
+          %button.btn.btn-primary{ type: "button", data: { action: "click->attendance-confirm#confirm" } } 確定

@@ -1,0 +1,22 @@
+%h2= "#{@year}年#{@month}月 シフト希望"
+
+= form_with url: monthly_create_shift_requests_path, local: true do |f|
+  = hidden_field_tag :year,  @year
+  = hidden_field_tag :month, @month
+
+  .row.mb-3
+    .col-md-6
+      = f.label :common_start_time, "出勤時刻（共通）"
+      = f.time_field :common_start_time, class: 'form-control', step: 1800, required: true
+    .col-md-6
+      = f.label :common_end_time, "退勤時刻（共通）"
+      = f.time_field :common_end_time,   class: 'form-control', step: 1800, required: true
+
+  = month_calendar(events: [], attribute: :shift_date, table_class: "table table-bordered stylish-calendar", nav_wrapper: { class: "btn btn-sm btn-outline-primary" }, skip_blanks: true) do |date, _|
+    - in_range = date.between?(@start_date, @end_date)
+    .p-2{ class: "calendar-cell #{in_range ? 'selectable' : 'text-muted'}", style: 'vertical-align: top; padding: .5rem;' }
+      = check_box_tag "shift_dates[]", date, false, id: "date_#{date}", class: "date-checkbox"
+      = label_tag      "date_#{date}", date.day, class: "ms-1"
+
+  = f.submit "まとめて提出", class: "btn btn-primary mt-3"
+  = link_to 'キャンセル', root_path, class: "btn btn-secondary mt-3"

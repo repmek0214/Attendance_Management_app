@@ -1,0 +1,74 @@
+- if user_signed_in?
+  - attendance = current_user.attendances.find_by(date: Date.current)
+  - correction = current_user.attendance_corrections.find_by(date: Date.current, status: :approved)
+  - time_in  = correction&.corrected_in || attendance&.clock_in
+  - time_out = correction&.corrected_out || attendance&.clock_out
+
+  .container
+    .row.g-4
+      /――――――――――――――――――――
+      .col-lg-4.col-sm-6
+        .card.shadow-sm.h-100
+          .card-header.bg-primary.text-white.text-center
+            %h5.mb-0.fs-4 ユーザー情報
+          .card-body.text-center
+            %p.mb-1.fs-5
+              %strong ログイン中:
+              = current_user.email
+            %p.mb-0.fs-5
+              %strong ロール:
+              = current_user.role
+
+      /――――――――――――――――――――
+      .col-lg-4.col-sm-6
+        .card.shadow-sm.h-100
+          .card-header.bg-info.text-white.text-center
+            %h5.mb-0.fs-4 本日の打刻
+          .card-body.text-center
+            - if time_in.present?
+              %p.mb-1.fs-5.fw-bold
+                %i.fas.fa-sign-in-alt.me-2
+                出勤:
+                %span.ms-1= time_in.strftime('%H:%M')
+            - else
+              %p.text-muted.mb-1.fs-5.fw-bold 未出勤
+            - if time_out.present?
+              %p.mb-0.fs-5.fw-bold
+                %i.fas.fa-sign-out-alt.me-2
+                退勤:
+                %span.ms-1= time_out.strftime('%H:%M')
+            - else
+              %p.text-muted.mb-0.fs-5.fw-bold 未退勤
+            - if correction
+              %p.text-warning.mt-2.fs-5.fw-bold
+                %i.fas.fa-exclamation-triangle.me-1
+                修正済みの打刻が適用されています
+
+      /――――――――――――――――――――
+      .col-lg-4.col-sm-12
+        .card.shadow-sm.h-100
+          .card-header.bg-secondary.text-white.text-center
+            %h5.mb-0.fs-4 勤怠打刻
+          .card-body.d-flex.flex-column.text-center
+            - if @today_attendance.nil?
+              = button_tag '打刻', type: :button, class: 'btn btn-success mb-2 fs-5', data: { bs_toggle: 'modal', bs_target: '#confirmAttendanceModal', action_type: 'in' }
+            - elsif @today_attendance.clock_in.present? && @today_attendance.clock_out.blank?
+              = button_tag '打刻', type: :button, class: 'btn btn-warning mb-2.fs-5', data: { bs_toggle: 'modal', bs_target: '#confirmAttendanceModal', action_type: 'out' }
+            - else
+              %button.btn.btn-outline-secondary.mb-2.fs-4.px-4.py-3{ disabled: true } 打刻済み
+
+    %hr.my-5
+
+    %h2.text-center.mb-3.fs-3 今月の勤務予定
+    = month_calendar(events: @schedules, attribute: :date, table_class: "table table-bordered shadow-sm fs-5", skip_blanks: true, nav_wrapper: { class: "simple-calendar-nav d-flex justify-content-center mb-3" }, nav_link: { class: "btn btn-outline-dark btn-sm mx-1 fs-5" }, weekday_order: [0, 1, 2, 3, 4, 5, 6]) do |day, events|
+      - cell_class = events.any? ? 'bg-primary text-white' : ''
+      .p-2{ class: cell_class }
+        %span.fs-5= day.day
+        - events.each do |e|
+          %div.small.mt-1.fs-6= "#{e.start_time.strftime('%H:%M')}-#{e.end_time.strftime('%H:%M')}"
+
+  = render 'shared/attendance_confirm_modal'
+- else
+  .text-center.mt-5
+    = link_to 'ログイン', new_user_session_path, class: 'btn btn-primary me-2 fs-5'
+    = link_to 'サインアップ', new_user_registration_path, class: 'btn btn-outline-primary fs-5'

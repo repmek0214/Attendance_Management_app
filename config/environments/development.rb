@@ -73,4 +73,13 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true           # ブラウザポップアップ通知
+    Bullet.bullet_logger = true   # log/bullet.log に記録
+    Bullet.console = true         # console に出力
+    Bullet.rails_logger = true    # Railsログに出力
+    Bullet.add_footer = true      # HTMLの最下部に通知
+  end
 end

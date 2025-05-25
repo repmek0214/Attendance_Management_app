@@ -1,0 +1,95 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title AttendanceManagementApp
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application.bootstrap", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+    %script{src: "https://cdn.jsdelivr.net/npm/chart.js"}
+    %script{src: "https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"}
+    %script{src: "https://cdn.jsdelivr.net/npm/chartkick/dist/chartkick.js"}
+
+    :javascript
+      document.addEventListener("turbo:load", function() {
+        if (typeof Chartkick !== "undefined") {
+          Chartkick.eachChart(function(chart) {
+            chart.redraw();
+          });
+        }
+      });   
+    - if notice
+      .alert.alert-info= notice
+    - if alert
+      .alert.alert-danger= alert
+  %body.d-flex.flex-column.min-vh-100
+    - if user_signed_in?
+      %nav.navbar.navbar-expand-lg.navbar-light.shadow-sm.py-4{ style: "background-color: #e3f2fd;" }
+        .container-fluid.d-flex.justify-content-center
+          %a.navbar-brand.fs-1.text-center{ href: root_path }
+            %i.fas.fa-clock.me-2
+            勤怠管理アプリ
+          %button.navbar-toggler{ type: "button", data: { bs_toggle: "collapse", bs_target: "#navbarNav" }, aria: { controls: "navbarNav", expanded: "false", label: "Toggle navigation" } }
+            %span.navbar-toggler-icon
+          #navbarNav.collapse.navbar-collapse
+            .navbar-nav.ms-auto
+              %li.nav-item.dropdown
+                %a.nav-link.dropdown-toggle.fs-4{ href: "#", id: "navbarDropdown", role: "button", data: { bs_toggle: "dropdown" }, aria: { expanded: "false" } }
+                  申請
+                %ul.dropdown-menu.dropdown-menu-end{ aria: { labelledby: "navbarDropdown" }, style: "font-size: 1.5rem; background-color: #f8f9fa; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" }
+                  %li
+                    = link_to '休暇申請する', new_leave_application_path, class: "dropdown-item py-2 px-3", style: "transition: background-color 0.3s; &:hover { background-color: #e9ecef; }"
+                  %li
+                    = link_to '経費申請する', new_expense_application_path, class: "dropdown-item py-2 px-3", style: "transition: background-color 0.3s; &:hover { background-color: #e9ecef; }"
+                  %li
+                    = link_to '勤怠修正申請する', new_attendance_correction_path, class: "dropdown-item py-2 px-3", style: "transition: background-color 0.3s; &:hover { background-color: #e9ecef; }"
+                  %li
+                    = link_to 'シフト希望を提出する', monthly_new_shift_requests_path, class: "dropdown-item py-2 px-3", style: "transition: background-color 0.3s; &:hover { background-color: #e9ecef; }"
+              %li.nav-item.dropdown
+                %a.nav-link.dropdown-toggle.fs-4{ href: "#", id: "navbarDropdown2", role: "button", data: { bs_toggle: "dropdown" }, aria: { expanded: "false" } }
+                  閲覧
+                %ul.dropdown-menu.dropdown-menu-end{ aria: { labelledby: "navbarDropdown2" }, style: "font-size: 1.5rem; background-color: #f8f9fa; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" }
+                  %li
+                    = link_to '休暇申請一覧', leave_applications_path, class: "dropdown-item py-2 px-3", style: "transition: background-color 0.3s; &:hover { background-color: #e9ecef; }"
+                  %li
+                    = link_to '経費申請一覧', expense_applications_path, class: "dropdown-item py-2 px-3", style: "transition: background-color 0.3s; &:hover { background-color: #e9ecef; }"
+                  %li
+                    = link_to '勤怠修正申請一覧', attendance_corrections_path, class: "dropdown-item py-2 px-3", style: "transition: background-color 0.3s; &:hover { background-color: #e9ecef; }"
+                  %li
+                    = link_to '勤怠履歴を見る', attendances_path, class: "dropdown-item py-2 px-3", style: "transition: background-color 0.3s; &:hover { background-color: #e9ecef; }"
+              %li.nav-item
+                = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link text-danger fs-4"
+    - else
+      %nav.navbar.navbar-expand-lg.navbar-light.shadow-sm.py-5{ style: "background-color: #e3f2fd;" }
+        .container-fluid.d-flex.justify-content-center
+          %p.navbar-brand.fs-1.text-center{ href: root_path }
+            %i.fas.fa-clock.me-2
+            勤怠管理アプリ
+
+
+    %main.flex-grow-1
+      .container.mt-5
+        = yield
+
+    - if current_user&.admin?
+      %footer.bg-dark.text-white.py-4
+        .container.text-center
+          %div.dropdown
+            %button.btn.btn-outline-light.dropdown-toggle.fs-5{ type: "button", data: { bs_toggle: "dropdown" }, aria: { expanded: "false" } }
+              管理者メニュー
+            %ul.dropdown-menu.dropdown-menu-center{ style: "font-size: 1.25rem; background-color: #001f3f; color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" }
+              %li
+                = link_to '休暇申請管理', admin_leave_applications_path, class: "dropdown-item py-2 px-3 text-white", style: "transition: background-color 0.3s; &:hover { background-color: #003366; }"
+              %li
+                = link_to '経費申請管理', admin_expense_applications_path, class: "dropdown-item py-2 px-3 text-white", style: "transition: background-color 0.3s; &:hover { background-color: #003366; }"
+              %li
+                = link_to '勤怠修正申請管理', admin_attendance_corrections_path, class: "dropdown-item py-2 px-3 text-white", style: "transition: background-color 0.3s; &:hover { background-color: #003366; }"
+              %li
+                = link_to 'シフト希望管理', admin_shift_requests_path, class: "dropdown-item py-2 px-3 text-white", style: "transition: background-color 0.3s; &:hover { background-color: #003366; }"
+    - else
+      %footer.bg-light.text-center.py-3.mt-auto
+        .container.text-center
+          %p.text-muted.mb-0
+            &copy; 勤怠管理アプリ. All rights reserved.

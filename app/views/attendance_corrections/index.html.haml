@@ -1,0 +1,20 @@
+%h2 勤怠修正申請一覧
+
+%table.table
+  %thead
+    %tr
+      %th 日付
+      %th 出勤修正
+      %th 退勤修正
+      %th 理由
+      %th ステータス
+  %tbody
+    - @corrections.each do |c|
+      %tr
+        %td= c.date
+        %td= c.corrected_in&.strftime("%H:%M") || "-"
+        %td= c.corrected_out&.strftime("%H:%M") || "-"
+        %td= c.reason
+        %td= c.status_i18n
+
+= link_to '戻る', root_path, class: "btn btn-primary"

@@ -1,0 +1,25 @@
+%h2 休暇申請管理
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th 氏名
+      %th 開始日
+      %th 終了日
+      %th 理由
+      %th ステータス
+      %th 操作
+  %tbody
+    - @leave_applications.each do |app|
+      %tr
+        %td= app.user.email
+        %td= app.start_date
+        %td= app.end_date
+        %td= app.reason
+        %td= app.status_i18n
+        %td
+          - unless app.approved? || app.rejected?
+            = button_to "承認", admin_leave_application_path(app, status: :approved), method: :patch, class: "btn btn-success btn-sm"
+            = button_to "却下", admin_leave_application_path(app, status: :rejected), method: :patch, class: "btn btn-danger btn-sm"
+
+= link_to '戻る', root_path
