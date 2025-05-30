@@ -48,8 +48,13 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
-  gem 'rspec-rails', '~> 5.0'       # RSpec本体
+  gem 'rspec-rails', '~> 6.1'       # RSpec本体
   gem 'factory_bot_rails'
+  gem 'faker', '~> 3.2'            # テストデータ生成用
+  gem 'fuubar'
+  gem 'rubocop', require: false # コード品質チェック
+  gem 'rubocop-rails', require: false 
+  gem 'rubocop-rspec', require: false         
   gem 'shoulda-matchers', '~> 6.0'
   gem 'sqlite3', '~> 1.5'
 end
@@ -62,9 +67,10 @@ group :development do
 end
 
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'simplecov', require: false
+  gem 'database_cleaner-active_record'
 end
 
 gem 'haml-rails', '~> 2.0'

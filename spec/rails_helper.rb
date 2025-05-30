@@ -1,83 +1,53 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
-require 'spec_helper'
-require 'capybara/rspec'
+require 'spec_helper' # RSpecの基本設定ファイルを読み込む
+ENV['RAILS_ENV'] ||= 'test' # RAILS_ENVが未設定なら'test'をセット
+require_relative '../config/environment' # Railsアプリの環境設定を読み込む
 
-ENV['RAILS_ENV'] ||= 'test'
-require_relative '../config/environment'
-# Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
-require 'rspec/rails'
-# Add additional requires below this line. Rails is not loaded until this point!
+# 本番環境でテストが実行されるのを防ぐ
 
-# Requires supporting ruby files with custom matchers and macros, etc, in
-# spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
-# run as spec files by default. This means that files in spec/support that end
-# in _spec.rb will both be required and run as specs, causing the specs to be
-# run twice. It is recommended that you do not name files matching this glob to
-# end with _spec.rb. You can configure this pattern with the --pattern
-# option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
-#
-# The following line is provided for convenience purposes. It has the downside
-# of increasing the boot-up time by auto-requiring all files in the support
-# directory. Alternatively, in the individual `*_spec.rb` files, manually
-# require only the support files necessary.
-#
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+require 'rspec/rails' # RSpecのRails用拡張を読み込む
 
-# Checks for pending migrations and applies them before tests are run.
-# If you are not using ActiveRecord, you can remove these lines.
 begin
-  ActiveRecord::Migration.maintain_test_schema!
+  ActiveRecord::Migration.maintain_test_schema! # テスト用DBのマイグレーション状態を維持
 rescue ActiveRecord::PendingMigrationError => e
-  puts e.to_s.strip
-  exit 1
+  puts e.to_s.strip # 未実行マイグレーションがあればエラー表示
+  exit 1 # 異常終了
 end
-RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
+RSpec.configure do |config| # RSpecの設定ブロック
+  config.fixture_path = "#{::Rails.root}/spec/fixtures" # fixtureのパスを指定
+  config.include FactoryBot::Syntax::Methods # FactoryBotのメソッドを直接使えるようにする
 
-  # You can uncomment this line to turn off ActiveRecord support entirely.
-  # config.use_active_record = false
+  config.use_transactional_fixtures = false # トランザクションによるテストデータのロールバックを無効化（DatabaseCleanerを使うため）
 
-  # RSpec Rails can automatically mix in different behaviours to your tests
-  # based on their file location, for example enabling you to call `get` and
-  # `post` in specs under `spec/controllers`.
-  #
-  # You can disable this behaviour by removing the line below, and instead
-  # explicitly tag your specs with their type, e.g.:
-  #
-  #     RSpec.describe UsersController, type: :controller do
-  #       # ...
-  #     end
-  #
-  # The different available types are documented in the features, such as in
-  # https://relishapp.com/rspec/rspec-rails/docs
-  config.infer_spec_type_from_file_location!
+  config.infer_spec_type_from_file_location! # specファイルの場所から自動的にテストタイプを推測
+  config.filter_rails_from_backtrace! # バックトレースからRailsのフレームワーク部分を除外
 
-  # Filter lines from Rails gems in backtraces.
-  config.filter_rails_from_backtrace!
-  # arbitrary gems may also be filtered via:
-  # config.filter_gems_from_backtrace("gem name")
-  config.include FactoryBot::Syntax::Methods
-  Shoulda::Matchers.configure do |config|
-    config.integrate do |with|
-      with.test_framework :rspec
-      with.library :rails
-    end
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation) # テストスイート開始前にDB全体を削除
+  end
+
+  config.before(:each) do |example|
+    # js: true の場合はtruncation、それ以外はtransactionでDBをクリーニング
+    DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
+    DatabaseCleaner.start # 各テスト前にクリーニング開始
+  end
+
+  config.append_after(:each) do
+    DatabaseCleaner.clean # 各テスト後にDBをクリーニング
+  end
+
+  # BulletのRSpecフック
+  if defined?(Bullet) && Bullet.enable?
+    config.before(:each) { Bullet.start_request } # 各テスト前にBulletを開始
+    config.after(:each)  { Bullet.perform_out_of_channel_notifications if Bullet.notification? } # 通知があれば出力
+    config.after(:each)  { Bullet.end_request } # 各テスト後にBulletを終了
   end
 end
 
-Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app,
-    browser: :chrome,
-    options: Selenium::WebDriver::Chrome::Options.new,
-    driver_path: '/opt/homebrew/bin/chromedriver'
-  )
+Shoulda::Matchers.configure do |config| # shoulda-matchersの設定
+  config.integrate do |with|
+    with.test_framework :rspec # RSpecと統合
+    with.library :rails # Rails用マッチャを有効化
+  end
 end
-
-Capybara.javascript_driver = :selenium_chrome

@@ -5,21 +5,36 @@
 #   gem "sqlite3"
 #
 default: &default
+  # PostgreSQLを使用するための設定
   adapter: postgresql
+  # データベースの文字エンコーディングをUnicodeに設定
   encoding: unicode
+  # コネクションプールのサイズを設定
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # 環境変数からデータベースのユーザー名を取得
   username: <%= ENV['DB_USERNAME'] %>
+  # 環境変数からデータベースのパスワードを取得
   password: <%= ENV['DB_PASSWORD'] %>
+  # データベースホストを環境変数から取得し、デフォルトはlocalhost
   host: <%= ENV['DB_HOST'] || 'localhost' %>
 
 development:
+  # 開発環境の設定をデフォルト設定から継承
   <<: *default
+  # 開発用データベース名を指定
   database: attendance_management_development
 
 test:
+  # テスト環境の設定をデフォルト設定から継承
   <<: *default
+  # テスト用データベース名を指定
   database: attendance_management_test
+  # テスト環境でのコネクションプールサイズを指定
+  pool: 5
+  
 
 production:
+  # 本番環境の設定をデフォルト設定から継承
   <<: *default
+  # 本番環境ではDATABASE_URLを使用して接続情報を指定
   url: <%= ENV['DATABASE_URL'] %>
