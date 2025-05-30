@@ -1,9 +1,8 @@
 name: RSpec
 
-on:
-  # mainとdevelopブランチへのpush、またはプルリクエスト時にワークフローを実行
+on: # mainとdevelopブランチへのpush、またはプルリクエスト時にワークフローを実行
   push:
-    branches: [main, develop]
+    branches: [main, develop, refator] # 対象ブランチを指定
   pull_request:
 
 jobs:
@@ -11,8 +10,7 @@ jobs:
     runs-on: ubuntu-latest # 最新のUbuntu環境でジョブを実行
 
     services:
-      postgres:
-        # PostgreSQLのバージョン16を使用
+      postgres: # PostgreSQLのバージョン16を使用
         image: postgres:16
         ports: ['5432:5432'] # ホストとコンテナ間でポートをマッピング
         env:
@@ -33,7 +31,7 @@ jobs:
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3' # Rubyのバージョンを指定
+          ruby-version: '3.2.2' # Rubyのバージョンを指定
           bundler-cache: true # Bundlerのキャッシュを有効化
 
       - name: Set up database config # database.ymlをバックアップし、テスト用の設定を上書き
