@@ -1,0 +1,57 @@
+name: RSpec
+
+on: # mainとdevelopブランチへのpush、またはプルリクエスト時にワークフローを実行
+  push:
+    branches: [main, develop, refator] # 対象ブランチを指定
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest # 最新のUbuntu環境でジョブを実行
+
+    services:
+      postgres: # PostgreSQLのバージョン16を使用
+        image: postgres:16
+        ports: ['5432:5432'] # ホストとコンテナ間でポートをマッピング
+        env:
+          POSTGRES_USER: postgres # データベースユーザー名
+          POSTGRES_PASSWORD: password # データベースパスワード
+        options: >-  # PostgreSQLのヘルスチェック設定
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      RAILS_ENV: test # Railsのテスト環境を指定
+      DATABASE_URL: postgres://postgres:password@localhost:5432/test_db # データベース接続URL
+
+    steps:
+      - uses: actions/checkout@v4 # リポジトリのコードをチェックアウト
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.2' # Rubyのバージョンを指定
+          bundler-cache: true # Bundlerのキャッシュを有効化
+
+      - name: Set up database config # database.ymlをバックアップし、テスト用の設定を上書き
+        run: | 
+          cp config/database.yml config/database.original.yml 
+          cat <<EOF > config/database.yml
+          test:
+            adapter: postgresql 
+            encoding: unicode 
+            database: test_db 
+            pool: 5 
+            username: postgres 
+            password: password 
+            host: localhost 
+          EOF
+
+      - name: Set up database # データベースを作成し、スキーマをロード
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
+
+      - name: Run RSpec
+        run: bundle exec rspec # RSpecテストを実行

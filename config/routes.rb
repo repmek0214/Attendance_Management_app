@@ -31,5 +31,5 @@ Rails.application.routes.draw do
     resources :shift_requests, only: [:index, :update]
   end
 
-  root to: 'home#index'
+  root to: 'home#index' 
 end

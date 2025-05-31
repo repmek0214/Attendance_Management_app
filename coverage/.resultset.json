@@ -1,0 +1,680 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/k.hiraiwa/Attendance_Management_app/app/models/user.rb": {
+        "lines": [
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/admin/attendance_corrections_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/admin/dashboard_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/admin/expense_applications_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/admin/leave_applications_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/admin/shift_requests_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/application_helper.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/attendance_corrections_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/attendances_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/expense_applications_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/home_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/leave_applications_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/helpers/shift_requests_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/models/attendance.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/services/attendance_service/recorder.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          6,
+          null,
+          null,
+          null,
+          1,
+          6,
+          6,
+          6,
+          6,
+          null,
+          null,
+          null,
+          1,
+          6,
+          6,
+          6,
+          4,
+          2,
+          null,
+          4,
+          4,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          6,
+          0,
+          null,
+          null,
+          1,
+          6,
+          null,
+          null,
+          1,
+          4,
+          3,
+          3,
+          null,
+          null,
+          1,
+          2,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/channels/application_cable/channel.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/channels/application_cable/connection.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/admin/attendance_corrections_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/admin/base_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/admin/expense_applications_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/admin/leave_applications_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/admin/shift_requests_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/application_controller.rb": {
+        "lines": [
+          0,
+          null,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/attendance_corrections_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/attendances_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          0,
+          null,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/expense_applications_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/home_controller.rb": {
+        "lines": [
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/leave_applications_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/controllers/shift_requests_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/jobs/application_job.rb": {
+        "lines": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/mailers/application_mailer.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/models/ability.rb": {
+        "lines": [
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/models/attendance_correction.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/models/expense_application.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/models/leave_application.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/models/schedule.rb": {
+        "lines": [
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/k.hiraiwa/Attendance_Management_app/app/models/shift_request.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      }
+    },
+    "timestamp": 1748681043
+  }
+}
