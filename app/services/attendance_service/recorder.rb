@@ -19,7 +19,7 @@ module AttendanceService
       @user      = user # ユーザーを設定
       @action    = action.to_sym # アクションをシンボルに変換して設定
       @timestamp = timestamp # タイムスタンプを設定
-      validate_action! # アクションの妥当性を検
+      validate_action! # アクションの妥当性を検証
     end
 
     # ==== メイン処理（トランザクションあり） =========================
