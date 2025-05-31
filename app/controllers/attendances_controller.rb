@@ -5,27 +5,44 @@ class AttendancesController < ApplicationController
     @attendances = current_user.attendances
                                .order(date: :desc)
                                .where(date: filtering_date_range)
-    @today_attendance = current_user.attendances.find_by(date: Date.current)
   end
   
 
   def create
-    date = Date.current
-    attendance = current_user.attendances.find_or_initialize_by(date: date)
+    # アクションタイプをマッピングするハッシュを定義
+    action_map = {
+      'in' => :clock_in, # "in"は出勤打刻
+      'out' => :clock_out # "out"は退勤打刻
+    }
 
-    if attendance.clock_in.nil?
-      attendance.clock_in = Time.current
-      message = "出勤打刻しました"
-    elsif attendance.clock_out.nil?
-      attendance.clock_out = Time.current
-      message = "退勤打刻しました"
-    else
-      message = "本日の打刻は完了済みです"
-    end
+    # パラメータからアクションタイプを取得
+    action_type = params[:action_type]
+    # アクションタイプをマッピングから取得
+    action = action_map[action_type]
 
-    attendance.save!
-    redirect_to root_path, notice: message
-  end
+    # アクションタイプが無効な場合は例外を発生
+    raise ArgumentError, "Unknown action_type: #{action_type}" if action.nil?
+
+    # 打刻時刻のパラメータを取得（出勤か退勤によって異なる）
+    timestamp_param = action == :clock_in ? params[:clock_in] : params[:clock_out]
+    # 打刻時刻を解析し、デフォルトで現在時刻を使用
+    timestamp = Time.zone.parse(timestamp_param.presence || Time.zone.now.to_s)
+
+    # AttendanceService::Recorderを呼び出して打刻処理を実行
+    AttendanceService::Recorder.call(
+      user: current_user, # 現在のユーザーを指定
+      action: action, # アクションを指定（出勤または退勤）
+      timestamp: timestamp # 打刻時刻を指定
+    )
+    # 処理成功時にリダイレクト
+    redirect_to root_path, notice: '打刻しました'
+  rescue AttendanceService::Recorder::AlreadyClockedInError
+    redirect_back fallback_location: root_path, alert: '既に出勤済みです'
+  rescue AttendanceService::Recorder::NeverClockedInError
+    redirect_back fallback_location: root_path, alert: '出勤打刻がありません'
+  rescue ActiveRecord::RecordInvalid
+    redirect_back fallback_location: root_path, alert: '保存に失敗しました'
+end
 
   private
 
