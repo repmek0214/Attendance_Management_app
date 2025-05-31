@@ -1,5 +1,5 @@
 require 'rails_helper' # Railsのテストヘルパーを読み込み
-require_relative '../../../app/services/attendance/recorder' # AttendanceService::Recorderをロード
+require_relative '../../../app/services/attendanceservice/recorder' # AttendanceService::Recorderをロード
 
 RSpec.describe AttendanceService::Recorder, type: :service do # モジュール名を変更
   let(:user) { create(:user) } # テスト用のユーザーを作成

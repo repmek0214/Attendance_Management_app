@@ -446,7 +446,7 @@ DEPENDENCIES
   jbuilder
   pagy
   pg (~> 1.5)
-  puma (>= 5.0)
+  puma (>= 6.0)
   rails (~> 7.1.5, >= 7.1.5.1)
   rails-i18n
   rails_admin (~> 3.0)
